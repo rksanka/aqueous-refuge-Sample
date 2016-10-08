@@ -1,0 +1,52 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<div id="response">
+    <pre></pre>
+</div>
+
+<form id="my-form">
+
+		<input id="FirstName" name="FirstName" maxlength="40" type="hidden" value="Jim"/>
+		<input id="LastName" name="LastName" maxlength="80" type="hidden" value="Taylor"/>
+
+		<input type="hidden" name="elqFormName" value="sfdcleadpass">
+		<input type="hidden" name="elqSiteId" value="2370">
+		<input type="hidden" name="elqCookieWrite" value="0">
+
+   	 	<button type="submit">Submit</button>
+
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+    (function($){
+        function processForm( e ){
+            $.ajax({
+                url: 'https://s2370.t.eloqua.com/e/f2',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function( data, textStatus, jQxhr ){
+                    $('#response pre').html( data );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#my-form').submit( processForm );
+    })(jQuery);
+</script>
+
+</body>
+</html>
